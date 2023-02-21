@@ -1,9 +1,19 @@
-const Blog = () => {
+import { getAllBlogPosts } from '../../lib/cms';
+import { Link } from 'react-router-dom';
+
+export default async function Blog() {
+  const posts = await getAllBlogPosts();
+
   return (
     <div>
-      <h1>Blog Page</h1>
+      {posts?.map((post, index) => (
+        <Link href={`/${post?.slug}`} key={index}>
+          <div>
+            <h1>{post?.title}</h1>
+            <p>{post?.body}</p>
+          </div>
+        </Link>
+      ))}
     </div>
   );
-};
-
-export default Blog;
+}
