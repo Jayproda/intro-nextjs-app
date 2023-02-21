@@ -1,5 +1,6 @@
 import { getAllBlogPosts } from '../../lib/cms';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import styles from '../../styles/home.module.css';
 
 export default async function Blog() {
   const posts = await getAllBlogPosts();
@@ -7,12 +8,12 @@ export default async function Blog() {
   return (
     <div>
       {posts?.map((post, index) => (
-        <Link href={`/${post?.slug}`} key={index}>
-          <div>
+        <div key={index}>
+          <Link href={`/blog/${post?.slug}`} className={styles.link}>
             <h1>{post?.title}</h1>
-            <p>{post?.body}</p>
-          </div>
-        </Link>
+          </Link>
+          <p>{post?.body}</p>
+        </div>
       ))}
     </div>
   );
